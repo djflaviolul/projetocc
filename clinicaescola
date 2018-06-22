@@ -1,0 +1,1108 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <locale.h>
+
+typedef struct pacientes PACIENTES;
+struct pacientes{
+	char x[1], codigo[20], nome[30], data[10], cpf[14], rua[30], bairro[20], numcasa[5];
+};
+
+typedef struct alunos ALUNOS;
+struct alunos{
+	char x[1], codigo[20], nome[30], cpf[14], curso[20];
+};
+
+typedef struct supervisores SUPERVISORES;
+struct supervisores{
+	char x[1], codigo[20], nome[30], curso[20];
+};
+
+typedef struct agendamentos AGENDAMENTOS;
+struct agendamentos{
+	char x[1], codigoagend[20], nome[30], codigopac[20], area[20], data[10];
+};
+
+typedef struct atendimentos ATENDIMENTOS;
+struct atendimentos{
+	char x[1], codigoatend[20], codigoagend[20], dataagend[10], nomealuno[30], codigoaluno[20], nomepaciente[30], codigopaciente[20], dataatend[10], area[20], nomesuper[30], codigosuper[20];
+};
+
+int menugeral(){
+	int opcao;
+	system ("cls");
+	system ("color 1e");
+	printf ("\t\t|*******************************************|\n");
+	printf ("\t\t|*                                         *|\n");
+	printf ("\t\t|*             SEJA BEM-VINDO!             *|\n");
+	printf ("\t\t|*                                         *|\n");
+	printf ("\t\t|*      Clínica Escola da Universidade     *|\n");
+	printf ("\t\t|*           Estadual da Paraíba           *|\n");
+	printf ("\t\t|*                                         *|\n");
+	printf ("\t\t|*------------------MENU-------------------*|\n");
+	printf ("\t\t|*                                         *|\n");
+	printf ("\t\t|*             1 - Paciente                *|\n");
+	printf ("\t\t|*             2 - Aluno                   *|\n");
+	printf ("\t\t|*             3 - Supervisor              *|\n");
+	printf ("\t\t|*             4 - Agendamento             *|\n");
+	printf ("\t\t|*             5 - Atendimento             *|\n");
+	printf ("\t\t|*             6 - Sair                    *|\n");
+	printf ("\t\t|*                                         *|\n");
+	printf ("\t\t|*******************************************|\n\n");
+	printf ("\t\t              OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+int menupaciente(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|           MENU PACIENTE           |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|      1 - Cadastrar Paciente       |");
+	printf ("\n|      2 - Editar Paciente          |");
+	printf ("\n|      3 - Remover Paciente         |");
+	printf ("\n|      4 - Listar Pacientes         |");
+	printf ("\n|            Cadastrados            |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+void menupacientescadastrados(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|       PACIENTES CADASTRADOS       |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+int menualuno(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|             MENU ALUNO            |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|        1 - Cadastrar Aluno        |");
+	printf ("\n|        2 - Editar Aluno           |");
+	printf ("\n|        3 - Remover Aluno          |");
+	printf ("\n|        4 - Listar Alunos          |");
+	printf ("\n|            Cadastrados            |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+void menualunoscadastrados(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|         ALUNOS CADASTRADOS        |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+int menusupervisor(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|          MENU SUPERVISOR          |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|     1 - Cadastrar Supervisor      |");
+	printf ("\n|     2 - Editar Supervisor         |");
+	printf ("\n|     3 - Remover Supervisor        |");
+	printf ("\n|     4 - Listar Supervisores       |");
+	printf ("\n|            Cadastrados            |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+void menusupervisorescadastrados(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|     SUPERVISORES CADASTRADOS      |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+int menuagendamento(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|          MENU AGENDAMENTO         |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|    1 - Criar Novo Agendamento     |");
+	printf ("\n|    2 - Cancelar Agendamento       |");
+	printf ("\n|    3 - Listar Agendamentos        |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+void menuagendamentoscadastrados(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|     AGENDAMENTOS CADASTRADOS      |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+int menuatendimento(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|          MENU ATENDIMENTO         |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|    1 - Criar Novo Atendimento     |");
+	printf ("\n|    2 - Cancelar Atendimento       |");
+	printf ("\n|    3 - Listar Atendimentos        |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+void menutodosatendimentoscadastrados(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|       TODOS OS ATENDIMENTOS       |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+void menuatendimentosporarea(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|       ATENDIMENTO POR ÁREA        |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+void menuatendimentosporaluno(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|       ATENDIMENTO POR ALUNO       |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+void menuatendimentosporpaciente(){
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|      ATENDIMENTO POR PACIENTE     |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|\n\n");
+}
+
+int menulistaratendimentos(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|      MENU LISTAR ATENDIMENTOS     |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|  1 - Listar Todos os Atendimentos |");
+	printf ("\n|  2 - Listar Atendimento por Área  |");
+	printf ("\n|  3 - Listar por Aluno             |");
+	printf ("\n|  4 - Listar por Paciente          |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+int menuremoverpacientes(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|       MENU REMOVER PACIENTES      |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|  1 - Remover Todos os Pacientes   |");
+	printf ("\n|  2 - Remover Paciente Específico  |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+int menuremoveralunos(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|         MENU REMOVER ALUNOS       |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|   1 - Remover Todos os Alunos     |");
+	printf ("\n|   2 - Remover Aluno Específico    |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+int menuremoversupervisores(){
+	int opcao;
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n|     MENU REMOVER SUPERVISORES     |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n|                                   |");
+	printf ("\n| 1 - Remover Todos os Supervisores |");
+	printf ("\n| 2 - Remover Supervisor Específico |");
+	printf ("\n|                                   |");
+	printf ("\n|-----------------------------------|");
+	printf ("\n           OPÇÃO ESCOLHIDA: ");
+	scanf ("%d", &opcao);
+	return opcao;
+}
+
+void cadastrarpaciente(){
+	FILE* paciente;
+	struct pacientes p;
+	paciente = fopen ("pacientes.txt", "ab");
+	if (paciente == NULL){
+		printf ("\nProblemas na abertura do arquivo!");
+	}
+	else{
+		do{
+			gets (p.x);
+			system ("cls");
+			printf ("\n|-----------------------------------|");
+			printf ("\n|                                   |");
+			printf ("\n|        CADASTRAR PACIENTE         |");
+			printf ("\n|                                   |");
+			printf ("\n|-----------------------------------|\n\n");
+			printf ("\nCódigo do Paciente: ");
+			gets (p.codigo);
+			printf ("\nNome do Paciente: ");
+			gets (p.nome);
+			printf ("\nData de Nascimento: ");
+			gets (p.data);
+			printf ("\nCPF: ");
+			gets (p.cpf);
+			printf ("\nRua: ");
+			gets (p.rua);
+			printf ("\nBairro: ");
+			gets (p.bairro);
+			printf ("\nNúmero da Residência: ");
+			gets (p.numcasa);
+			fwrite (&p, sizeof(PACIENTES), 1, paciente);
+			printf ("\nDeseja cadastrar mais um paciente? (s/n) ");
+		}while (getche() == 's');
+		fclose (paciente);
+	}
+}
+
+void cadastraraluno(){
+	FILE* aluno;
+	struct alunos p;
+	aluno = fopen ("alunos.txt", "ab");
+	if (aluno == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else{
+		do{
+			gets (p.x);
+			system ("cls");
+			printf ("\n|-----------------------------------|");
+			printf ("\n|                                   |");
+			printf ("\n|          CADASTRAR ALUNO          |");
+			printf ("\n|                                   |");
+			printf ("\n|-----------------------------------|\n\n");
+			printf ("\nCódigo do Aluno: ");
+			gets (p.codigo);
+			printf ("\nNome do Aluno: ");
+			gets (p.nome);
+			printf ("\nCPF: ");
+			gets (p.cpf);
+			printf ("\nCurso: ");
+			gets (p.curso);
+			fwrite (&p, sizeof(ALUNOS), 1, aluno);
+			printf ("\nDeseja cadastrar mais um aluno? (s/n) ");
+		}while (getche() == 's');
+		fclose (aluno);
+	}
+}
+
+void cadastrarsupervisor(){
+	FILE* supervisor;
+	struct supervisores p;
+	supervisor = fopen ("supervisores.txt", "ab");
+	if (supervisor == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else{
+		do{
+			gets (p.x);
+			system ("cls");
+			printf ("\n|-----------------------------------|");
+			printf ("\n|                                   |");
+			printf ("\n|       CADASTRAR SUPERVISOR        |");
+			printf ("\n|                                   |");
+			printf ("\n|-----------------------------------|\n\n");
+			printf ("\nCódigo do(a) Supervisor(a): ");
+			gets (p.codigo);
+			printf ("\nNome do(a) Supervisor(a): ");
+			gets (p.nome);
+			printf ("\nCurso: ");
+			gets (p.curso);
+			fwrite (&p, sizeof(SUPERVISORES), 1, supervisor);
+			printf ("\nDeseja cadastrar mais um supervisor? (s/n) ");
+		}while (getche() == 's');
+		fclose (supervisor);
+	}
+}
+
+void criaragendamentos(){
+	FILE* agendamento;
+	struct agendamentos p;
+	agendamento = fopen ("agendamentos.txt", "ab");
+	if (agendamento == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else{
+		do{
+			gets (p.x);
+			system ("cls");
+			printf ("\n|-----------------------------------|");
+			printf ("\n|                                   |");
+			printf ("\n|         CRIAR AGENDAMENTO         |");
+			printf ("\n|                                   |");
+			printf ("\n|-----------------------------------|\n\n");
+			printf ("\nCódigo do Agendamento: ");
+			gets (p.codigoagend);
+			printf ("\nNome do Paciente: ");
+			gets (p.nome);
+			printf ("\nCódigo do Paciente: ");
+			gets (p.codigopac);
+			printf ("\nÁrea do Atendimento: ");
+			gets (p.area);
+			printf ("\nData da Consulta: ");
+			gets (p.data);
+			fwrite (&p, sizeof(AGENDAMENTOS), 1, agendamento);
+			printf ("\nDeseja fazer mais um agendamento? (s/n) ");
+		}while (getche() == 's');
+		fclose (agendamento);
+	}
+}
+
+void criaratendimentos(){
+	FILE* atendimento;
+	struct atendimentos p;
+	atendimento = fopen ("atendimentos.txt", "ab");
+	if (atendimento == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else {
+		do{
+			gets (p.x);
+			system ("cls");
+			printf ("\n|-----------------------------------|");
+			printf ("\n|                                   |");
+			printf ("\n|         CRIAR ATENDIMENTO         |");
+			printf ("\n|                                   |");
+			printf ("\n|-----------------------------------|\n\n");
+			printf ("\nCódigo do Atendimento: ");
+			gets (p.codigoatend);
+			printf ("\nCódigo do Agendamento: ");
+			gets (p.codigoagend);
+			printf ("\nData do Agendamento: ");
+			gets (p.dataagend);
+			printf ("\nNome do Aluno: ");
+			gets (p.nomealuno);
+			printf ("\nCódigo do Aluno: ");
+			gets (p.codigoaluno);
+			printf ("\nNome do Paciente: ");
+			gets (p.nomepaciente);
+			printf ("\nCódigo do Paciente: ");
+			gets (p.codigopaciente);
+			printf ("\nData do Atendimento: ");
+			gets (p.dataatend);
+			printf ("\nServiço Prestado (Área do Atendimento): ");
+			gets (p.area);
+			printf ("\nNome do Supervisor: ");
+			gets (p.nomesuper);
+			printf ("\nCódigo do Supervisor: ");
+			gets (p.codigosuper);
+			fwrite (&p, sizeof(ATENDIMENTOS), 1, atendimento);
+			printf ("\nDeseja fazer mais um atendimento? (s/n) ");
+		}while (getche() == 's');
+		fclose (atendimento);
+	}
+}
+
+void listarpacientes(){
+	FILE* paciente;
+	struct pacientes p;
+	paciente = fopen ("pacientes.txt", "rb");
+	if (paciente == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum paciente cadastrado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		while (fread(&p, sizeof(PACIENTES), 1, paciente) == 1){
+			printf ("Código do Paciente: %s\n", p.codigo);
+			printf ("Nome do Paciente: %s\n", p.nome);
+			printf ("Data de Nascimento: %s\n", p.data);
+			printf ("CPF: %s\n", p.cpf);
+			printf ("Endereço: %s, %s - %s\n\n", p.rua, p.bairro, p.numcasa);
+			printf ("-----------------------------------\n\n");
+		}
+	}
+	fclose (paciente);
+	getch();
+}
+
+void listaralunos(){
+	FILE* aluno;
+	struct alunos p;
+	aluno = fopen ("alunos.txt", "rb");
+	if (aluno == NULL){
+		printf ("\n\nNenhum aluno cadastrado!");
+	}
+	else{
+		while (fread(&p, sizeof(ALUNOS), 1, aluno) == 1){
+			printf ("\nCódigo do Aluno: %s\n", p.codigo);
+			printf ("Nome do Aluno: %s\n", p.nome);
+			printf ("CPF: %s\n", p.cpf);
+			printf ("Curso: %s\n\n", p.curso);
+			printf ("-----------------------------------\n\n");
+		}
+	}
+	fclose (aluno);
+	getch();
+}
+
+void listarsupervisores(){
+	FILE* supervisor;
+	struct supervisores p;
+	supervisor = fopen ("supervisores.txt", "rb");
+	if (supervisor == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum supervisor cadastrado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		while (fread(&p, sizeof(SUPERVISORES), 1, supervisor) == 1){
+			printf ("\nCódigo do Professor/Supervisor: %s\n", p.codigo);
+			printf ("Nome do Professor/Supervisor: %s\n", p.nome);
+			printf ("Curso: %s\n\n", p.curso);
+			printf ("-----------------------------------\n\n");
+		}
+	}
+	fclose (supervisor);
+	getch();
+}
+
+void listaragendamentos(){
+	FILE* agendamento;
+	struct agendamentos p;
+	agendamento = fopen ("agendamentos.txt", "rb");
+	if (agendamento == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum agendamento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		while (fread(&p, sizeof(AGENDAMENTOS), 1, agendamento) == 1){
+			printf ("\nCódigo do Agendamento: %s\n", p.codigoagend);
+			printf ("Nome do Paciente: %s\n", p.nome);
+			printf ("Código do Paciente: %s\n", p.codigopac);
+			printf ("Área do Atendimento: %s\n", p.area);
+			printf ("Data da Consulta: %s\n\n", p.data);
+			printf ("-----------------------------------\n\n");
+		}
+	}
+	fclose (agendamento);
+	getch();
+}
+
+void listartodosatendimentos(){
+	FILE* atendimento;
+	struct atendimentos p;
+	atendimento = fopen ("atendimentos.txt", "rb");
+	if (atendimento == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum atendimento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		while (fread(&p, sizeof(ATENDIMENTOS), 1, atendimento) == 1){
+			printf ("\nCódigo do Atendimento: %s\n", p.codigoatend);
+			printf ("Código do Agendamento: %s\n", p.codigoagend);
+			printf ("Data do Agendamento: %s\n", p.dataagend);
+			printf ("Nome do Aluno: %s\n", p.nomealuno);
+			printf ("Código do Aluno: %s\n", p.codigoaluno);
+			printf ("Nome do Paciente: %s\n", p.nomepaciente);
+			printf ("Código do Paciente: %s\n", p.codigopaciente);
+			printf ("Data do Atendimento: %s\n", p.dataatend);
+			printf ("Serviço Prestado (Área do Atendimento): %s\n", p.area);
+			printf ("Nome do Supervisor: %s\n", p.nomesuper);
+			printf ("Código do Supervisor: %s\n\n", p.codigosuper);
+			printf ("-----------------------------------\n\n");
+		}
+	}
+	fclose (atendimento);
+	getch();
+}
+
+void listaratendimentoporarea(){
+	FILE* atendimentoarea;
+	struct atendimentos p;
+	char palavra[30];
+	atendimentoarea = fopen ("atendimentos.txt", "rb");
+	if (atendimentoarea == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum atendimento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		fflush (stdin);
+		printf ("-------------------------------------------------------");
+		printf ("\n\nDigite o nome da área a ser pesquisado: ");
+		gets(palavra);
+		printf ("\n\n---------------------------------------------------");
+		while (fread(&p, sizeof(ATENDIMENTOS), 1, atendimentoarea) == 1){
+			if (strcmp(palavra, p.area) == 0){
+				printf ("\nCódigo do Atendimento: %s\n", p.codigoatend);
+				printf ("Código do Agendamento: %s\n", p.codigoagend);
+				printf ("Data do Agendamento: %s\n", p.dataagend);
+				printf ("Nome do Aluno: %s\n", p.nomealuno);
+				printf ("Código do Aluno: %s\n", p.codigoaluno);
+				printf ("Nome do Paciente: %s\n", p.nomepaciente);
+				printf ("Código do Paciente: %s\n", p.codigopaciente);
+				printf ("Data do Atendimento: %s\n", p.dataatend);
+				printf ("Serviço Prestado (Área do Atendimento): %s\n", p.area);
+				printf ("Nome do Supervisor: %s\n", p.nomesuper);
+				printf ("Código do Supervisor: %s\n\n", p.codigosuper);
+				printf ("-----------------------------------\n\n");
+			}
+		}
+	}
+	fclose (atendimentoarea);
+	getch();
+}
+
+void listaratendimentoporaluno(){
+	FILE* atendimentoaluno;
+	struct atendimentos p;
+	char palavra[30];
+	atendimentoaluno = fopen ("atendimentos.txt", "rb");
+	if (atendimentoaluno == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum atendimento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		fflush (stdin);
+		printf ("-------------------------------------------------------");
+		printf ("\n\nDigite o nome do aluno a ser pesquisado: ");
+		gets(palavra);
+		printf ("\n\n---------------------------------------------------");
+		while (fread(&p, sizeof(ATENDIMENTOS), 1, atendimentoaluno) == 1){
+			if (strcmp(palavra, p.nomealuno) == 0){
+				printf ("\nCódigo do Atendimento: %s\n", p.codigoatend);
+				printf ("Código do Agendamento: %s\n", p.codigoagend);
+				printf ("Data do Agendamento: %s\n", p.dataagend);
+				printf ("Nome do Aluno: %s\n", p.nomealuno);
+				printf ("Código do Aluno: %s\n", p.codigoaluno);
+				printf ("Nome do Paciente: %s\n", p.nomepaciente);
+				printf ("Código do Paciente: %s\n", p.codigopaciente);
+				printf ("Data do Atendimento: %s\n", p.dataatend);
+				printf ("Serviço Prestado (Área do Atendimento): %s\n", p.area);
+				printf ("Nome do Supervisor: %s\n", p.nomesuper);
+				printf ("Código do Supervisor: %s\n\n", p.codigosuper);
+				printf ("-----------------------------------\n\n");
+			}
+		}
+	}
+	fclose (atendimentoaluno);
+	getch();
+}
+
+void listaratendimentoporpaciente(){
+	FILE* atendimentopaciente;
+	struct atendimentos p;
+	char palavra[30];
+	atendimentopaciente = fopen ("atendimentos.txt", "rb");
+	if (atendimentopaciente == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum atendimento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		fflush (stdin);
+		printf ("-------------------------------------------------------");
+		printf ("\n\nDigite o nome do paciente a ser pesquisado: ");
+		gets(palavra);
+		printf ("\n\n---------------------------------------------------");
+		while (fread(&p, sizeof(ATENDIMENTOS), 1, atendimentopaciente) == 1){
+			if (strcmp(palavra, p.nomepaciente) == 0){
+				printf ("\nCódigo do Atendimento: %s\n", p.codigoatend);
+				printf ("Código do Agendamento: %s\n", p.codigoagend);
+				printf ("Data do Agendamento: %s\n", p.dataagend);
+				printf ("Nome do Aluno: %s\n", p.nomealuno);
+				printf ("Código do Aluno: %s\n", p.codigoaluno);
+				printf ("Nome do Paciente: %s\n", p.nomepaciente);
+				printf ("Código do Paciente: %s\n", p.codigopaciente);
+				printf ("Data do Atendimento: %s\n", p.dataatend);
+				printf ("Serviço Prestado (Área do Atendimento): %s\n", p.area);
+				printf ("Nome do Supervisor: %s\n", p.nomesuper);
+				printf ("Código do Supervisor: %s\n\n", p.codigosuper);
+				printf ("-----------------------------------\n\n");
+			}
+		}
+	}
+	fclose (atendimentopaciente);
+	getch();
+}
+
+void removertodospacientes(){
+	FILE* paciente;
+	struct pacientes p;
+	paciente = fopen ("pacientes.txt", "r");
+	if (paciente == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else {
+		fclose (paciente);
+		printf ("---------------------------------------------------");
+		printf ("\n\nTodos os pacientes cadastrados foram removidos.");
+		printf ("\n\n---------------------------------------------------");
+		remove ("pacientes.txt");
+	}
+	getche();
+}
+
+void removertodosalunos(){
+	FILE* aluno;
+	struct alunos p;
+	aluno = fopen ("alunos.txt", "r");
+	if (aluno == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else {
+		fclose (aluno);
+		printf ("---------------------------------------------------");
+		printf ("\n\nTodos os alunos cadastrados foram removidos.");
+		printf ("\n\n---------------------------------------------------");
+		remove ("alunos.txt");
+	}
+	getche();
+}
+
+void removertodossupervisores(){
+	FILE* supervisor;
+	struct supervisores p;
+	supervisor = fopen ("supervisores.txt", "r");
+	if (supervisor == NULL){
+		printf ("-----------------------------------------");
+		printf ("\n\nProblemas na abertura do arquivo!");
+		printf ("\n\n-----------------------------------------");
+	}
+	else {
+		fclose (supervisor);
+		printf ("---------------------------------------------------");
+		printf ("\n\nTodos os supervisores cadastrados foram removidos.");
+		printf ("\n\n---------------------------------------------------");
+		remove ("supervisores.txt");
+	}
+	getche();
+}
+
+void removerunicopaciente(){
+	FILE* paciente;
+	FILE* paciente2;
+	char aux[20];
+	struct pacientes p;
+	paciente = fopen ("pacientes.txt", "rb");
+	paciente2 = fopen ("pacientes2.txt", "ab");
+	if (paciente == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum paciente cadastrado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		printf ("\nDigite o código do paciente a ser removido: ");
+		fflush (stdin);
+		gets (aux);
+		while (fread(&p, sizeof(PACIENTES), 1, paciente) == 1){
+			if (strcmp (p.codigo, aux) == 1){
+				fwrite (&p, sizeof(PACIENTES), 1, paciente2);
+			}
+		}
+		fclose (paciente);
+		fclose (paciente2);
+		system ("cls");
+		printf ("---------------------------------------------------");
+		printf ("\n\nO paciente cadastrado foi removido.");
+		printf ("\n\n---------------------------------------------------");
+		getch();
+		system ("del pacientes.txt");
+		system ("ren pacientes2.txt pacientes.txt");
+}
+}
+
+void removerunicoaluno(){
+	FILE* aluno;
+	FILE* aluno2;
+	char aux[20];
+	struct alunos p;
+	aluno = fopen ("alunos.txt", "rb");
+	aluno2 = fopen ("alunos2.txt", "ab");
+	if (aluno == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum aluno cadastrado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		printf ("\nDigite o código do aluno a ser removido: ");
+		fflush (stdin);
+		gets (aux);
+		while (fread(&p, sizeof(ALUNOS), 1, aluno) == 1){
+			if (strcmp (p.codigo, aux) == 1){
+				fwrite (&p, sizeof(ALUNOS), 1, aluno2);
+			}
+		}
+		fclose (aluno);
+		fclose (aluno2);
+		system ("cls");
+		printf ("---------------------------------------------------");
+		printf ("\n\nO aluno cadastrado foi removido.");
+		printf ("\n\n---------------------------------------------------");
+		getch();
+		system ("del alunos.txt");
+		system ("ren alunos2.txt alunos.txt");
+}
+}
+
+void removerunicosupervisor(){
+	FILE* supervisor;
+	FILE* supervisor2;
+	char aux[20];
+	struct supervisores p;
+	supervisor = fopen ("supervisores.txt", "rb");
+	supervisor2 = fopen ("supervisores2.txt", "ab");
+	if (supervisor == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum supervisor cadastrado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		printf ("\nDigite o código do supervisor a ser removido: ");
+		fflush (stdin);
+		gets (aux);
+		while (fread(&p, sizeof(SUPERVISORES), 1, supervisor) == 1){
+			if (strcmp (p.codigo, aux) == 1){
+				fwrite (&p, sizeof(SUPERVISORES), 1, supervisor2);
+			}
+		}
+		fclose (supervisor);
+		fclose (supervisor2);
+		system ("cls");
+		printf ("---------------------------------------------------");
+		printf ("\n\nO supervisor cadastrado foi removido.");
+		printf ("\n\n---------------------------------------------------");
+		getch();
+		system ("del supervisores.txt");
+		system ("ren supervisores2.txt supervisores.txt");
+}
+}
+
+void removeragendamento(){
+	FILE* agendamento;
+	FILE* agendamento2;
+	char aux[20];
+	struct agendamentos p;
+	agendamento = fopen ("agendamentos.txt", "rb");
+	agendamento2 = fopen ("agendamentos2.txt", "ab");
+	if (agendamento == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum agendamento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		printf ("\nDigite o código do agendamento a ser cancelado: ");
+		fflush (stdin);
+		gets (aux);
+		while (fread(&p, sizeof(AGENDAMENTOS), 1, agendamento) == 1){
+			if (strcmp (p.codigoagend, aux) == 1){
+				fwrite (&p, sizeof(AGENDAMENTOS), 1, agendamento2);
+			}
+		}
+		fclose (agendamento);
+		fclose (agendamento2);
+		system ("cls");
+		printf ("---------------------------------------------------");
+		printf ("\n\nO agendamento marcado foi cancelado.");
+		printf ("\n\n---------------------------------------------------");
+		getch();
+		system ("del agendamentos.txt");
+		system ("ren agendamentos2.txt agendamentos.txt");
+}
+}
+
+void removeratendimento(){
+	FILE* atendimento;
+	FILE* atendimento2;
+	char aux[20];
+	struct atendimentos p;
+	atendimento = fopen ("atendimentos.txt", "rb");
+	atendimento2 = fopen ("atendimentos2.txt", "ab");
+	if (atendimento == NULL){
+		printf ("-------------------------------");
+		printf ("\n\nNenhum atendimento marcado!");
+		printf ("\n\n-------------------------------");
+	}
+	else{
+		printf ("\nDigite o código do atendimento a ser cancelado: ");
+		fflush (stdin);
+		gets (aux);
+		while (fread(&p, sizeof(ATENDIMENTOS), 1, atendimento) == 1){
+			if (strcmp (p.codigoatend, aux) == 1){
+				fwrite (&p, sizeof(ATENDIMENTOS), 1, atendimento2);
+			}
+		}
+		fclose (atendimento);
+		fclose (atendimento2);
+		system ("cls");
+		printf ("---------------------------------------------------");
+		printf ("\n\nO atendimento marcado foi cancelado.");
+		printf ("\n\n---------------------------------------------------");
+		getch();
+		system ("del atendimentos.txt");
+		system ("ren atendimentos2.txt atendimentos.txt");
+}
+}
+
+main(){ 
+	setlocale(LC_ALL, "Portuguese");
+	for (;;){
+	switch (menugeral()){
+		case 1: {
+			system ("cls");
+			switch (menupaciente()){
+				case 1: {
+					system ("cls");
+					cadastrarpaciente();
+					break;
+				}
+				case 2: {
+					break;
+				}
+				case 3: {
+					system ("cls");
+					switch (menuremoverpacientes()){
+						case 1: {
+							system ("cls");
+							removertodospacientes();
+							break;
+						}
+						case 2: {
+							system ("cls");
+							removerunicopaciente();
+							break;
+						}
+					}
+					break;
+				}
+				case 4: {
+					system ("cls");
+					menupacientescadastrados();
+					listarpacientes();
+					break;
+				}
+			}
+			break;
+		}
+		case 2: {
+			system ("cls");
+			switch (menualuno()){
+				case 1: {
+					system ("cls");
+					cadastraraluno();
+					break;
+				}
+				case 2: {
+					break;
+				}
+				case 3: {
+					system ("cls");
+					switch (menuremoveralunos()){
+						case 1: {
+							system ("cls");
+							removertodosalunos();
+							break;
+						}
+						case 2: {
+							system ("cls");
+							removerunicoaluno();
+							break;
+						}
+					}
+					break;
+				}
+				case 4: {
+					system ("cls");
+					menualunoscadastrados();
+					listaralunos();
+					break;
+				}
+			}
+			break;
+		}
+		case 3: {
+			system ("cls");
+			switch (menusupervisor()){
+				case 1: {
+					system ("cls");
+					cadastrarsupervisor();
+					break;
+				}
+				case 2: {
+					break;
+				}
+				case 3: {
+					system ("cls");
+					switch (menuremoversupervisores()){
+						case 1: {
+							system ("cls");
+							removertodossupervisores();
+							break;
+						}
+						case 2: {
+							system ("cls");
+							removerunicosupervisor();
+							break;
+						}
+					}
+					break;
+				}
+				case 4: {
+					system ("cls");
+					menusupervisorescadastrados();
+					listarsupervisores();
+					break;
+				}
+			}
+			break;
+		}
+		case 4: {
+			system ("cls");
+			switch (menuagendamento()){
+				case 1: {
+					system ("cls");
+					criaragendamentos();
+					break;
+				}
+				case 2: {
+					system ("cls");
+					removeragendamento();
+					break;
+				}
+				case 3: {
+					system ("cls");
+					menuagendamentoscadastrados();
+					listaragendamentos();
+					break;
+				}
+			}
+			break;
+		}
+		case 5: {
+			system ("cls");
+			switch (menuatendimento()){
+				case 1: {
+					system ("cls");
+					criaratendimentos();
+					break;
+				}
+				case 2: {
+					system ("cls");
+					removeratendimento();
+					break;
+				}
+				case 3: {
+					system ("cls");
+					switch (menulistaratendimentos()){
+						case 1: {
+							system ("cls");
+							menutodosatendimentoscadastrados();
+							listartodosatendimentos();
+							break;
+						}
+						case 2: {
+							system ("cls");
+							menuatendimentosporarea();
+							listaratendimentoporarea();
+							break;
+						}
+						case 3: {
+							system ("cls");
+							menuatendimentosporaluno();
+							listaratendimentoporaluno();
+							break;
+						}
+						case 4: {
+							system ("cls");
+							menuatendimentosporpaciente();
+							listaratendimentoporpaciente();
+							break;
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+	if (menugeral() == 6){
+		system ("cls");
+		printf ("--------------------------------");
+		printf ("\n\nObrigado por sua visita!");
+		printf ("\n\n--------------------------------");
+		break;
+		}
+	}
+}
